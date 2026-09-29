@@ -9,6 +9,7 @@ import {
   Monitor,
   BuildingIcon,
   Book,
+  Building,
 } from 'lucide-react';
 
 export const personal = {
@@ -21,7 +22,7 @@ export const personal = {
   email: 'kontak@namamu.my.id',
   whatsapp: '6281234567890',
   whatsappLabel: '+62 812-3456-7890',
-  linkedin: 'https://linkedin.com/in/aykel-daely',
+  linkedin: 'https://linkedin.com/in/aykeldaely',
   profileImage:
     '/images/foto-profil.jpg',
   avatarImage:
@@ -31,14 +32,15 @@ export const personal = {
 export const headline = {
   title: 'Safe Minds. Safe Hands. Safe Plans.',
   subtitle:
-    'Mahasiswa lulusan Jurusan D4 Keselamatan dan Kesehatan Kerja dengan pengalaman magang di perusahaan dengan berbagai sektor yang berbeda serta telah menyelesaikan pelatihan sertifikasi Ahli K3 Umum (AK3U) Kemnaker RI (sertifikat dalam proses penerbitan). Memiliki minat yang kuat di bidang manajemen risiko dan ergonomi. Memiliki pengalaman dalam melakukan inspeksi keselamatan dan mengembangkan prosedur kerja yang aman serta pemahaman yang baik tentang peraturan K3 dan standar industri yang berlaku.',
+    'Perkenalkan, saya Aykel. Saya merupakan mahasiswa lulusan Jurusan D4 Keselamatan dan Kesehatan Kerja (K3) dengan pengalaman magang di berbagai sektor industri yang berbeda. Telah menyelesaikan pelatihan sertifikasi Ahli K3 Umum (AK3U) Kemnaker RI, memiliki minat yang kuat di bidang manajemen risiko dan ergonomi, berpengalaman dalam melakukan inspeksi keselamatan dan mengembangkan prosedur kerja yang aman serta pemahaman yang baik tentang peraturan K3 dan standar industri yang berlaku.',
   badge: 'Occupational Health & Safety Enthusiast',
 };
 
 export const stats = [
-  { label: 'Sertifikasi', value: '110+', icon: ShieldCheck },
+  { label: 'Sertifikasi', value: '10+', icon: ShieldCheck },
   { label: 'Bln Magang', value: '7+', icon: FileText },
   { label: 'Temuan CAPA', value: '100+', icon: ClipboardCheck },
+  { label: 'Perusahaan', value: '4+', icon: Building },
   ];
 
 export const navItems = [

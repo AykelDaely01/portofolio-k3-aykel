@@ -135,7 +135,7 @@ export default function Contact() {
                 />
               </div>
               <FormField
-                label="Perusahaan"
+                label="Perusahaan/Instansi"
                 type="text"
                 value={form.company}
                 onChange={(v) => setForm({ ...form, company: v })}
