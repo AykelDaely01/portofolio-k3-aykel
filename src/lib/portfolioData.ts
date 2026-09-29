@@ -23,9 +23,9 @@ export const personal = {
   whatsappLabel: '+62 812-3456-7890',
   linkedin: 'https://linkedin.com/in/aykel-daely',
   profileImage:
-    '/public/images/foto-profil.jpg',
+    '/images/foto-profil.jpg',
   avatarImage:
-    '/public/images/foto-profil.jpg',
+    '/images/foto-profil.jpg',
 };
 
 export const headline = {
