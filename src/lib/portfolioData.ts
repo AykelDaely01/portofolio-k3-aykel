@@ -36,7 +36,7 @@ export const headline = {
 };
 
 export const stats = [
-  { label: 'Sertifikasi', value: '10+', icon: ShieldCheck },
+  { label: 'Sertifikasi', value: '110+', icon: ShieldCheck },
   { label: 'Bln Magang', value: '7+', icon: FileText },
   { label: 'Temuan CAPA', value: '100+', icon: ClipboardCheck },
   ];
