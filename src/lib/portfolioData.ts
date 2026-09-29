@@ -31,12 +31,12 @@ export const personal = {
 export const headline = {
   title: 'Safe Minds. Safe Hands. Safe Plans.',
   subtitle:
-    'D4 Keselamatan dan Kesehatan Kerja | Spesialisasi pada Identifikasi Bahaya (HIRADC), Inspeksi Lapangan, Audit ISO 45001, dan Ergonomi.',
+    'Mahasiswa lulusan Jurusan D4 Keselamatan dan Kesehatan Kerja dengan pengalaman magang di perusahaan dengan berbagai sektor yang berbeda serta telah menyelesaikan pelatihan sertifikasi Ahli K3 Umum (AK3U) Kemnaker RI (sertifikat dalam proses penerbitan). Memiliki minat yang kuat di bidang manajemen risiko dan ergonomi. Memiliki pengalaman dalam melakukan inspeksi keselamatan dan mengembangkan prosedur kerja yang aman serta pemahaman yang baik tentang peraturan K3 dan standar industri yang berlaku.',
   badge: 'Occupational Health & Safety Enthusiast',
 };
 
 export const stats = [
-  { label: 'Sertifikasi', value: '5+', icon: ShieldCheck },
+  { label: 'Sertifikasi', value: '10+', icon: ShieldCheck },
   { label: 'Bln Magang', value: '7+', icon: FileText },
   { label: 'Temuan CAPA', value: '100+', icon: ClipboardCheck },
   ];
