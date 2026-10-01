@@ -1,5 +1,4 @@
 exports.handler = async (event) => {
-  // Hanya menerima metode POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -17,13 +16,12 @@ exports.handler = async (event) => {
       };
     }
 
-    // Panggil API Brevo
     const response = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'api-key': process.env.BREVO_API_KEY, // Mengambil API Key dari Netlify Environment Variables
+        'api-key': process.env.BREVO_API_KEY,
       },
       body: JSON.stringify({
         sender: {
@@ -57,6 +55,7 @@ exports.handler = async (event) => {
     if (response.ok) {
       return {
         statusCode: 200,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: 'Pesan berhasil terkirim!' }),
       };
     } else {
@@ -64,6 +63,7 @@ exports.handler = async (event) => {
       console.error('Brevo Error:', errorData);
       return {
         statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: 'Gagal mengirim email via Brevo.' }),
       };
     }
@@ -71,6 +71,7 @@ exports.handler = async (event) => {
     console.error('Server Error:', error);
     return {
       statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: 'Terjadi kesalahan pada server.' }),
     };
   }

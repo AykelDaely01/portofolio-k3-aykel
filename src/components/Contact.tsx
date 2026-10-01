@@ -10,7 +10,7 @@ export default function Contact() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
 
-  // 🟢 FUNGSI KIRIM PESAN KE NETLIFY SERVERLESS FUNCTION
+  // FUNGSI KIRIM PESAN KE NETLIFY SERVERLESS FUNCTION
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -23,19 +23,24 @@ export default function Contact() {
         body: JSON.stringify(form),
       });
 
-      if (response.ok) {
-        setSubmitted(true);
-        setForm({ name: '', email: '', company: '', message: '' });
-        setTimeout(() => {
-          setSubmitted(false);
-        }, 4000);
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        const data = await response.json();
+        if (response.ok) {
+          setSubmitted(true);
+          setForm({ name: '', email: '', company: '', message: '' });
+          setTimeout(() => {
+            setSubmitted(false);
+          }, 4000);
+        } else {
+          setErrorMessage(data.message || 'Gagal mengirim pesan.');
+        }
       } else {
-        const data = await response.json().catch(() => ({}));
-        setErrorMessage(data.message || 'Gagal mengirim pesan. Silakan coba lagi.');
+        setErrorMessage('Fungsi backend Netlify belum aktif / ter-deploy di server Netlify.');
       }
     } catch (error) {
       console.error('Error sending email:', error);
-      setErrorMessage('Terjadi kesalahan koneksi. Silakan coba lagi nanti.');
+      setErrorMessage('Terjadi kesalahan koneksi. Silakan coba lagi.');
     } finally {
       setIsSubmitting(false);
     }
@@ -49,7 +54,6 @@ export default function Contact() {
       href: `mailto:${personal.email}`,
       color: 'text-safety-green',
       bg: 'bg-safety-green/10',
-      // 🟢 DETEKSI OTOMATIS HP VS LAPTOP / PC
       onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (!isMobile) {
@@ -190,14 +194,14 @@ export default function Contact() {
                 />
               </div>
 
-              {/* Notifikasi Error jika gagal */}
+              {/* Tampilan jika ada error */}
               {errorMessage && (
                 <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-xs text-red-500 font-medium">
                   {errorMessage}
                 </div>
               )}
 
-              {/* Tombol Kirim Pesan */}
+              {/* Tombol Kirim */}
               <button
                 type="submit"
                 disabled={isSubmitting || submitted}
