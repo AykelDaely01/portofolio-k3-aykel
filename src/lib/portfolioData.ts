@@ -19,7 +19,7 @@ export const personal = {
   specialization:
     'Spesialisasi pada Identifikasi Bahaya (HIRADC), Inspeksi Lapangan, Audit ISO 45001, dan Ergonomi.',
   location: 'Medan, Indonesia',
-  email: 'kontak@namamu.my.id',
+  email: 'hello@aykeldaely.my.id',
   whatsapp: '6281234567890',
   whatsappLabel: '+62 812-3456-7890',
   linkedin: 'https://linkedin.com/in/aykeldaely',

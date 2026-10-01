@@ -25,6 +25,17 @@ export default function Contact() {
       href: `mailto:${personal.email}`,
       color: 'text-safety-green',
       bg: 'bg-safety-green/10',
+      // 🟢 DETEKSI OTOMATIS HP VS LAPTOP / PC
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (!isMobile) {
+          e.preventDefault();
+          window.open(
+            `https://mail.google.com/mail/?view=cm&fs=1&to=${personal.email}`,
+            '_blank'
+          );
+        }
+      },
     },
     {
       icon: Phone,

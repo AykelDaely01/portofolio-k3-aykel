@@ -14,7 +14,7 @@ import { personal } from '@/lib/portfolioData';
 
 // 💡 UBAH KE 'true' UNTUK MODE PENGEMBANGAN
 // 💡 UBAH KE 'false' JIKA WEBSITE SUDAH SIAP DIPUBLIKASIKAN
-const IS_UNDER_DEVELOPMENT = true;
+const IS_UNDER_DEVELOPMENT = false;
 
 function App() {
   if (IS_UNDER_DEVELOPMENT) {
