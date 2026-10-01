@@ -108,6 +108,7 @@ export default function Contact() {
                   <a
                     key={item.label}
                     href={item.href}
+                    onClick={item.onClick} // 🟢 DIPASANG DI SINI
                     target={item.href.startsWith('http') ? '_blank' : undefined}
                     rel="noopener noreferrer"
                     className="block"
