@@ -1,20 +1,44 @@
 import { useState } from 'react';
-import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, Linkedin, MapPin, Send, CheckCircle2, Loader2 } from 'lucide-react';
 import { personal } from '@/lib/portfolioData';
 import { useInView } from '@/hooks/useInView';
 
 export default function Contact() {
   const { ref, inView } = useInView();
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // 🟢 FUNGSI KIRIM PESAN KE NETLIFY SERVERLESS FUNCTION
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setForm({ name: '', email: '', company: '', message: '' });
-    }, 3000);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const response = await fetch('/.netlify/functions/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        setForm({ name: '', email: '', company: '', message: '' });
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 4000);
+      } else {
+        const data = await response.json().catch(() => ({}));
+        setErrorMessage(data.message || 'Gagal mengirim pesan. Silakan coba lagi.');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setErrorMessage('Terjadi kesalahan koneksi. Silakan coba lagi nanti.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactItems = [
@@ -108,7 +132,7 @@ export default function Contact() {
                   <a
                     key={item.label}
                     href={item.href}
-                    onClick={item.onClick} // 🟢 DIPASANG DI SINI
+                    onClick={item.onClick}
                     target={item.href.startsWith('http') ? '_blank' : undefined}
                     rel="noopener noreferrer"
                     className="block"
@@ -165,16 +189,32 @@ export default function Contact() {
                   placeholder="Tuliskan pesan Anda..."
                 />
               </div>
+
+              {/* Notifikasi Error jika gagal */}
+              {errorMessage && (
+                <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-xs text-red-500 font-medium">
+                  {errorMessage}
+                </div>
+              )}
+
+              {/* Tombol Kirim Pesan */}
               <button
                 type="submit"
-                disabled={submitted}
+                disabled={isSubmitting || submitted}
                 className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 font-semibold rounded-xl shadow-lg transition-all duration-300 ${
                   submitted
                     ? 'bg-safety-green-dark text-white shadow-safety-green/20'
+                    : isSubmitting
+                    ? 'bg-slate-600 text-white cursor-not-allowed opacity-80'
                     : 'bg-safety-green hover:bg-safety-green-dark text-white shadow-safety-green/20 hover:shadow-safety-green/30 hover:scale-[1.01]'
                 }`}
               >
-                {submitted ? (
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Mengirim Pesan...
+                  </>
+                ) : submitted ? (
                   <>
                     <CheckCircle2 className="w-5 h-5" />
                     Pesan Terkirim!
