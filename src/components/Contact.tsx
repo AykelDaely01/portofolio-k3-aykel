@@ -17,7 +17,7 @@ export default function Contact() {
     setErrorMessage(null);
 
     try {
-      const response = await fetch('/api/functions/send-email', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -36,7 +36,7 @@ export default function Contact() {
           setErrorMessage(data.message || 'Gagal mengirim pesan.');
         }
       } else {
-        setErrorMessage('Fungsi backend Netlify belum aktif / ter-deploy di server Netlify.');
+        setErrorMessage('Gagal menghubungi server backend. Silakan coba lagi.');
       }
     } catch (error) {
       console.error('Error sending email:', error);
