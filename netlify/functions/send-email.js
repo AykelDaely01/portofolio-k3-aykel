@@ -16,6 +16,34 @@ export const handler = async (event) => {
       };
     }
 
+    // 1. KIRIM NOTIFIKASI INSTAN KE TELEGRAM
+    const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
+    const chatId = process.env.TELEGRAM_CHAT_ID;
+
+    if (telegramToken && chatId) {
+      const telegramMessage = 
+        `📬 *PESAN BARU DARI PORTOFOLIO*\n\n` +
+        `👤 *Nama:* ${name}\n` +
+        `📧 *Email:* ${email}\n` +
+        `🏢 *Perusahaan:* ${company || '-'}\n\n` +
+        `💬 *Pesan:*\n${message}`;
+
+      try {
+        await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: telegramMessage,
+            parse_mode: 'Markdown',
+          }),
+        });
+      } catch (tgError) {
+        console.error('Gagal kirim notifikasi Telegram:', tgError);
+      }
+    }
+
+    // 2. KIRIM ARSIP EMAIL VIA BREVO
     const response = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
