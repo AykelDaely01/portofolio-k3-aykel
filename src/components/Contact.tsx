@@ -10,14 +10,14 @@ export default function Contact() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [form, setForm] = useState({ name: '', email: '', company: '', message: '' });
 
-  // FUNGSI KIRIM PESAN KE NETLIFY SERVERLESS FUNCTION
+  // FUNGSI KIRIM PESAN KE NETLIFY (SEKARANG KE VERCEL) SERVERLESS FUNCTION
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
 
     try {
-      const response = await fetch('/.netlify/functions/send-email', {
+      const response = await fetch('/api/functions/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
